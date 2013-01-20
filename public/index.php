@@ -12,6 +12,7 @@ $routes = include __DIR__ . '/../app/app.php';
 $context = new Routing\RequestContext();
 $context->fromRequest( $request );
 $matcher = new Routing\Matcher\UrlMatcher( $routes, $context );
+$generator = new Routing\Generator\UrlGenerator( $routes, $context );
 
 try{
     // Extracts _route and other routing parameters

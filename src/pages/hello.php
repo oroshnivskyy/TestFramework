@@ -1,3 +1,5 @@
-
-
-Hello <?php echo htmlspecialchars($name, ENT_QUOTES, 'UTF-8') ?>
+<a href ="<?= $generator->generate( 'hello', array( 'name' => 'Oleg' ) ); ?>">Hello Oleg</a>
+<br />
+<a href ="<?= $generator->generate( 'bye' ); ?>">Bye</a>
+<br />
+Hello <?= htmlspecialchars( $name, ENT_QUOTES, 'UTF-8' ) ?>

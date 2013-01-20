@@ -1,1 +1,1 @@
-<?php echo 'Goodbye!' ?>
+<?= 'Goodbye!' ?>
