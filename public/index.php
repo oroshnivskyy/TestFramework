@@ -9,19 +9,19 @@ $request = Request::createFromGlobals();
 $response = new Response();
 
 $routes = array(
-    '/hello' => '/pages/hello.php',
-    '/bye' => '/pages/bye.php',
+    '/hello' => 'hello',
+    '/bye' => 'bye',
 );
 
 $path = $request->getPathInfo();
 
 if ( isset( $routes[ $path ] ) ){
     ob_start();
-    require BASE_PATH . '/src' . $routes[ $path ];
-    $response->setContent( ob_get_clean() );
+    extract( $request->query->all(), EXTR_SKIP );
+    include sprintf( BASE_PATH . '/src/pages/%s.php', $routes[ $path ] );
+    $response = new Response( ob_get_clean() );
 } else{
-    $response->setStatusCode( 404 );
-    $response->setContent( 'Not Found' );
+    $response = new Response( 'Not Found', 404 );
 }
 
 $response->send();
