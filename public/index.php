@@ -1,5 +1,7 @@
 <?php
 
-$input = isset($_GET['name']) ? $_GET['name'] : 'World';
+$input = isset( $_GET[ 'name' ] ) ? $_GET[ 'name' ] : 'World';
 
-echo "Hello {$input}";
+header( 'Content-Type: text/html; charset=utf-8' );
+
+echo 'Hello ', htmlspecialchars( $input, ENT_QUOTES, 'UTF-8' );
