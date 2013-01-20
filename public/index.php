@@ -16,7 +16,9 @@ $routes = array(
 $path = $request->getPathInfo();
 
 if ( isset( $routes[ $path ] ) ){
+    ob_start();
     require BASE_PATH . '/src' . $routes[ $path ];
+    $response->setContent( ob_get_clean() );
 } else{
     $response->setStatusCode( 404 );
     $response->setContent( 'Not Found' );
