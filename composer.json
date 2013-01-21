@@ -6,7 +6,8 @@
     },
     "autoload": {
         "psr-0": {
-            "Controller": "src"
+            "Calendar": "src",
+            "Simple": "app"
         }
     }
 }
