@@ -17,7 +17,7 @@ $matcher = new Routing\Matcher\UrlMatcher( $routes, $context );
 $resolver = new HttpKernel\Controller\ControllerResolver();
 
 $dispatcher = new EventDispatcher();
-$dispatcher->addListener( 'response', array( new Simple\ResponseListener(), 'onResponse' ), -255 );
+$dispatcher->addSubscriber( new Simple\ResponseSubscriber() );
 
 $framework = new Simple\Framework( $dispatcher, $matcher, $resolver );
 $response = $framework->handle( $request );
