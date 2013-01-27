@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing;
 use Symfony\Component\HttpKernel;
+use Symfony\Component\EventDispatcher\EventDispatcher;
 
 $request = Request::createFromGlobals();
 $routes = include BASE_PATH . '/app/app.php';
@@ -15,7 +16,12 @@ $context->fromRequest( $request );
 $matcher = new Routing\Matcher\UrlMatcher( $routes, $context );
 $resolver = new HttpKernel\Controller\ControllerResolver();
 
-$framework = new Simple\Framework( $matcher, $resolver );
+$dispatcher = new EventDispatcher();
+$dispatcher->addListener( 'response', function( Simple\ResponseEvent $event ){
+    $event->getResponse()->headers->set( 'Framework', "Simple" );
+}, -255 );
+
+$framework = new Simple\Framework( $dispatcher, $matcher, $resolver );
 $response = $framework->handle( $request );
 
 $response->send();
