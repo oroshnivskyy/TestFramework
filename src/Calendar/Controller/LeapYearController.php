@@ -7,10 +7,18 @@ class LeapYearController{
     public function indexAction( $year ){
         $leapYear = new LeapYear();
         if ( $leapYear->isLeapYear( $year ) ){
-            return new Response( 'Yep, this is a leap year!' );
+            $response = new Response( 'Yep, this is a leap year!' . time() );
+        }
+        else{
+            $response = new Response( 'Nope, this is not a leap year.' . time() );
         }
 
-        return new Response( 'Nope, this is not a leap year.' );
+        $response->setPublic();
+        $response->setEtag( 'etagtag' );
+        $response->setLastModified( new \DateTime() );
+        $response->setMaxAge( 10 );
+        $response->setSharedMaxAge( 10 );
+        return $response;
     }
     private static function is_leap_year( $year = null ){
         if ( !isset( $year ) ){

@@ -20,6 +20,7 @@ $dispatcher = new EventDispatcher();
 $dispatcher->addSubscriber( new Simple\ResponseSubscriber() );
 
 $framework = new Simple\Framework( $dispatcher, $matcher, $resolver );
+$framework = new HttpKernel\HttpCache\HttpCache( $framework, new HttpKernel\HttpCache\Store( BASE_PATH . '/cache' ) );
 $response = $framework->handle( $request );
 
 $response->send();
