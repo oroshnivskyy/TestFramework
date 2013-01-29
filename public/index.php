@@ -21,6 +21,7 @@ $dispatcher->addSubscriber ( new HttpKernel\EventListener\RouterListener( $match
 $listener = new HttpKernel\EventListener\ExceptionListener( "Simple\ErrorController::exceptionAction" );
 $dispatcher->addSubscriber( $listener );
 $dispatcher->addSubscriber( new HttpKernel\EventListener\ResponseListener( 'UTF-8' ) );
+$dispatcher->addSubscriber( new Simple\StringResponseListener() );
 
 // For StreamedResponses
 //$dispatcher->addSubscriber(new HttpKernel\EventListener\StreamedResponseListener());

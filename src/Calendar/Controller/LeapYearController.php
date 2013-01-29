@@ -10,7 +10,7 @@ class LeapYearController{
             $response = new Response( 'Yep, this is a leap year!' . time() );
         }
         else{
-            $response = new Response( 'Nope, this is not a leap year.' . time() );
+            return "Nope, this is not a leap year.";
         }
 
         $response->setPublic();
