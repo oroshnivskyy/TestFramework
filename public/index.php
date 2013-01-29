@@ -12,15 +12,21 @@ $request = Request::createFromGlobals();
 $routes = include BASE_PATH . '/app/app.php';
 
 $context = new Routing\RequestContext();
-$context->fromRequest( $request );
 $matcher = new Routing\Matcher\UrlMatcher( $routes, $context );
 $resolver = new HttpKernel\Controller\ControllerResolver();
 
 $dispatcher = new EventDispatcher();
 $dispatcher->addSubscriber( new Simple\ResponseSubscriber() );
+$dispatcher->addSubscriber ( new HttpKernel\EventListener\RouterListener( $matcher ) );
+$listener = new HttpKernel\EventListener\ExceptionListener( "Simple\ErrorController::exceptionAction" );
+$dispatcher->addSubscriber( $listener );
+$dispatcher->addSubscriber( new HttpKernel\EventListener\ResponseListener( 'UTF-8' ) );
 
-$framework = new Simple\Framework( $dispatcher, $matcher, $resolver );
-$framework = new HttpKernel\HttpCache\HttpCache( $framework, new HttpKernel\HttpCache\Store( BASE_PATH . '/cache' ) );
+// For StreamedResponses
+//$dispatcher->addSubscriber(new HttpKernel\EventListener\StreamedResponseListener());
+
+$framework = new Simple\Framework( $dispatcher, $resolver );
+//$framework = new HttpKernel\HttpCache\HttpCache( $framework, new HttpKernel\HttpCache\Store( BASE_PATH . '/cache' ) );
 $response = $framework->handle( $request );
 
 $response->send();
