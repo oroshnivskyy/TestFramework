@@ -6,12 +6,14 @@ require_once BASE_PATH . '/vendor/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
 
-$request = Request::createFromGlobals();
 $routes = include BASE_PATH . '/app/app.php';
+$sc = include BASE_PATH . '/app/container.php';
 
-$framework = new Simple\Framework( $routes );
+$request = Request::createFromGlobals();
 
-$framework->handle( $request )->send();
+$response = $sc->get('framework')->handle($request);
+
+$response->send();
 
 function render_template( \Symfony\Component\HttpFoundation\Request $request ){
     // Extracts _route and other routing parameters
