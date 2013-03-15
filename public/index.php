@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 
 $routes = include BASE_PATH . '/app/app.php';
 $sc = include BASE_PATH . '/app/container.php';
+$sc->setParameter( 'charset', 'UTF-8' );
+$sc->setParameter( 'routes', include BASE_PATH . '/app/app.php' );
 
 $request = Request::createFromGlobals();
 
