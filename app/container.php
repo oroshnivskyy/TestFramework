@@ -26,5 +26,6 @@ $sc->register( 'dispatcher', 'Symfony\Component\EventDispatcher\EventDispatcher'
 
 $sc->register( 'framework', 'Simple\Framework' )
     ->setArguments( array( new Reference( 'dispatcher' ), new Reference( 'resolver' ) ) );
-
+$sc->setParameter( 'charset', 'UTF-8' );
+$sc->setParameter( 'routes', include BASE_PATH . '/app/app.php' );
 return $sc;

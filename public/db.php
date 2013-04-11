@@ -7,7 +7,7 @@ require_once BASE_PATH . '/vendor/autoload.php';
 use Symfony\Component\HttpFoundation\Request;
 
 include BASE_PATH . '/app/phalcon_container.php';
-$sc = getContainer(false);
+$sc = getContainer(true);
 
 $request = Request::createFromGlobals();
 
