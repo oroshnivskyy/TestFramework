@@ -8,23 +8,29 @@ $routes->add(
     'hello',
     new Routing\Route(
         '/hello/{name}',
-        array( 'name' => 'World',
-               '_controller' => function ( \Symfony\Component\HttpFoundation\Request $request ){
-                   // $foo will be available in the template
-                   $request->attributes->set( 'foo', 'bar' );
+        array(
+            'name' => 'World',
+            '_controller' => function (\Symfony\Component\HttpFoundation\Request $request) {
+                // $foo will be available in the template
+                $request->attributes->set('foo', 'bar');
 
-                   $response = render_template( $request );
+                $response = render_template($request);
 
-                   // change some header
-                   $response->headers->set( 'Content-Type', 'text/plain' );
+                // change some header
+                $response->headers->set('Content-Type', 'text/plain');
 
-                   return $response;
-               },
-        ) ) );
-$routes->add( 'bye', new Routing\Route( '/bye', array( '_controller' => 'render_template' ) ) );
+                return $response;
+            },
+        ))
+);
+$routes->add('bye', new Routing\Route('/bye', array('_controller' => 'render_template')));
 
-$routes->add( 'leap_year',
-              new Routing\Route( '/is_leap_year/{year}',
-                                 array( 'year' => null,
-                                        '_controller' => 'Calendar\Controller\LeapYearController::indexAction' ) ) );
+$routes->add(
+    'leap_year',
+    new Routing\Route('/is_leap_year/{year}',
+        array(
+            'year' => null,
+            '_controller' => 'Calendar\Controller\LeapYearController::indexAction'
+        ))
+);
 return $routes;

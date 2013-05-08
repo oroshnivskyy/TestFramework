@@ -1,11 +1,13 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-define( 'BASE_PATH', __DIR__ . '/..' );
+define('BASE_PATH', __DIR__ . '/..');
 
 require_once BASE_PATH . '/vendor/autoload.php';
 
 use Symfony\Component\HttpFoundation\Request;
 
+
+// use '/app/container.php'; to get symfony2 DI container
 include BASE_PATH . '/app/phalcon_container.php';
 $sc = getContainer(false);
 
@@ -15,11 +17,12 @@ $response = $sc->getFramework()->handle($request);
 
 $response->send();
 
-function render_template( \Symfony\Component\HttpFoundation\Request $request ){
+function render_template(\Symfony\Component\HttpFoundation\Request $request)
+{
     // Extracts _route and other routing parameters
-    extract( $request->attributes->all(), EXTR_SKIP );
+    extract($request->attributes->all(), EXTR_SKIP);
     ob_start();
-    include sprintf( BASE_PATH . '/src/pages/%s.php', $_route );
+    include sprintf(BASE_PATH . '/src/pages/%s.php', $_route);
 
-    return new Response( ob_get_clean() );
+    return new Response(ob_get_clean());
 }
